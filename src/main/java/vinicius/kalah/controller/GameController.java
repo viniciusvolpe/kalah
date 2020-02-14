@@ -1,20 +1,27 @@
 package vinicius.kalah.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import vinicius.kalah.dto.GameMoveDTO;
 import vinicius.kalah.dto.GameResponseDTO;
+import vinicius.kalah.service.StartService;
 
-import javax.websocket.server.PathParam;
+import javax.servlet.ServletContext;
 
-@RestController("/games")
+@RestController
+@RequestMapping("/games")
 public class GameController {
+
+    private final StartService startService;
+
+    @Autowired
+    public GameController(StartService startService) {
+        this.startService = startService;
+    }
 
     @PostMapping
     public GameResponseDTO startGame() {
-        return new GameResponseDTO();
+        return startService.start();
     }
 
     @PutMapping("{gameId}/pits/{pitId}")
