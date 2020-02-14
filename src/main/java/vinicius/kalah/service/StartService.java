@@ -6,6 +6,7 @@ import vinicius.kalah.configuration.KalahProperties;
 import vinicius.kalah.dto.GameResponseDTO;
 import vinicius.kalah.model.Board;
 import vinicius.kalah.model.Game;
+import vinicius.kalah.model.Player;
 import vinicius.kalah.repository.BoardRepository;
 import vinicius.kalah.repository.GameRepository;
 
@@ -17,8 +18,6 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 public class StartService {
-    private static final String DEFAULT_PLAYER_ONE_NAME = "player one";
-    private static final String DEFAULT_PLAYER_TWO_NAME = "player two";
     private static final Integer STONES = 6;
     private static final Map<Integer, Integer> INITIAL_PITS = IntStream.rangeClosed(1, 14)
             .boxed()
@@ -37,7 +36,7 @@ public class StartService {
 
     public GameResponseDTO start() {
         Board board = createBoard();
-        Game game = gameRepository.save(new Game(null, DEFAULT_PLAYER_ONE_NAME, DEFAULT_PLAYER_TWO_NAME, board));
+        Game game = gameRepository.save(new Game(null, Player.ONE, board));
         return new GameResponseDTO(game.getId(), buildUri(game));
     }
 

@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
+import java.util.stream.IntStream;
 
 @Document
 public class Board {
@@ -34,5 +35,19 @@ public class Board {
 
     public void setPits(Map<Integer, Integer> pits) {
         this.pits = pits;
+    }
+
+    public Board move(Integer pit) {
+        IntStream.iterate(1, pitCount -> pitCount + 1)
+                .limit(pits.get(pit))
+                .forEach(pitCount -> {
+                    Integer currentPit = pit + pitCount;
+                    if(currentPit > 14)
+                        currentPit = 16 - currentPit;
+                    if(currentPit.equals(pit)) return;
+                    pits.put(currentPit, pits.get(currentPit) + 1);
+                });
+        pits.put(pit, 0);
+        return this;
     }
 }

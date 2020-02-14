@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vinicius.kalah.dto.GameMoveDTO;
 import vinicius.kalah.dto.GameResponseDTO;
+import vinicius.kalah.service.MoveService;
 import vinicius.kalah.service.StartService;
 
 import javax.servlet.ServletContext;
@@ -13,10 +14,12 @@ import javax.servlet.ServletContext;
 public class GameController {
 
     private final StartService startService;
+    private final MoveService moveService;
 
     @Autowired
-    public GameController(StartService startService) {
+    public GameController(StartService startService, MoveService moveService) {
         this.startService = startService;
+        this.moveService = moveService;
     }
 
     @PostMapping
@@ -25,7 +28,7 @@ public class GameController {
     }
 
     @PutMapping("{gameId}/pits/{pitId}")
-    public GameMoveDTO makeMove(@PathVariable("gameId") String gameId, @PathVariable("pitId") String pitId) {
-        return new GameMoveDTO();
+    public GameMoveDTO makeMove(@PathVariable("gameId") String gameId, @PathVariable("pitId") Integer pitId) {
+        return moveService.makeAMove(gameId, pitId);
     }
 }

@@ -9,18 +9,16 @@ public class Game {
 
     @Id
     private String id;
-    private String firstPlayer;
-    private String secondPlayer;
+    private Player turn;
     @DBRef
     private Board board;
 
     public Game() {
     }
 
-    public Game(String id, String firstPlayer, String secondPlayer, Board board) {
+    public Game(String id, Player turn, Board board) {
         this.id = id;
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
+        this.turn = turn;
         this.board = board;
     }
 
@@ -32,20 +30,12 @@ public class Game {
         this.id = id;
     }
 
-    public String getFirstPlayer() {
-        return firstPlayer;
+    public Player getTurn() {
+        return turn;
     }
 
-    public void setFirstPlayer(String firstPlayer) {
-        this.firstPlayer = firstPlayer;
-    }
-
-    public String getSecondPlayer() {
-        return secondPlayer;
-    }
-
-    public void setSecondPlayer(String secondPlayer) {
-        this.secondPlayer = secondPlayer;
+    public void setTurn(Player turn) {
+        this.turn = turn;
     }
 
     public Board getBoard() {
@@ -54,5 +44,10 @@ public class Game {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public Game changeTurn() {
+        turn = Player.ONE.equals(turn) ? Player.TWO : Player.ONE;
+        return this;
     }
 }
