@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Map;
+
 @Document
 public class Game {
 
@@ -49,5 +51,16 @@ public class Game {
     public Game changeTurn() {
         turn = Player.ONE.equals(turn) ? Player.TWO : Player.ONE;
         return this;
+    }
+
+    public Game move(Integer pit) {
+        Board board = this.board.move(pit, turn);
+        if(!turn.getKalah().equals(board.getLastPit()))
+            turn = Player.ONE.equals(turn) ? Player.TWO : Player.ONE;
+        return this;
+    }
+
+    public Map<Integer, Integer> getPits() {
+        return board.getPits();
     }
 }

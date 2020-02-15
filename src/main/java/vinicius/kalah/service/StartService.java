@@ -19,9 +19,6 @@ import static java.util.stream.Collectors.toMap;
 @Service
 public class StartService {
     private static final Integer STONES = 6;
-    private static final Map<Integer, Integer> INITIAL_PITS = IntStream.rangeClosed(1, 14)
-            .boxed()
-            .collect(toMap(identity(), pit -> STONES));
 
     private final GameRepository gameRepository;
     private final BoardRepository boardRepository;
@@ -45,6 +42,16 @@ public class StartService {
     }
 
     private Board createBoard() {
-        return boardRepository.save(new Board(null, INITIAL_PITS));
+        return boardRepository.save(new Board(null, createInitialBoard()));
+    }
+
+    private Map<Integer, Integer> createInitialBoard() {
+        return IntStream.rangeClosed(1, 14)
+                .boxed()
+                .collect(toMap(identity(), pit -> isKalah(pit) ? 0 : STONES));
+    }
+
+    private boolean isKalah(Integer pit) {
+        return Player.ONE.getKalah().equals(pit) || Player.TWO.getKalah().equals(pit);
     }
 }

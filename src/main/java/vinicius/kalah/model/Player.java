@@ -25,4 +25,8 @@ public enum Player {
     public Integer getKalah() {
         return kalah;
     }
+
+    public boolean isMyBoard(Integer pit) {
+        return pit < getFirstPit() || pit > getLastPit();
+    }
 }

@@ -2,15 +2,15 @@ package vinicius.kalah.dto;
 
 import java.util.Map;
 
-public class GameMoveDTO {
+public class GameStatusDTO {
     private String id;
     private String url;
     private Map<Integer, Integer> status;
 
-    public GameMoveDTO() {
+    public GameStatusDTO() {
     }
 
-    public GameMoveDTO(String id, String url, Map<Integer, Integer> status) {
+    public GameStatusDTO(String id, String url, Map<Integer, Integer> status) {
         this.id = id;
         this.url = url;
         this.status = status;
