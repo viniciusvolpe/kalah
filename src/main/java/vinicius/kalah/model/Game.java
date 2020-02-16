@@ -36,14 +36,9 @@ public class Game {
         return board;
     }
 
-    public Game changeTurn() {
-        turn = Player.ONE.equals(turn) ? Player.TWO : Player.ONE;
-        return this;
-    }
-
     public Game move(Integer pit) {
         Board board = this.board.move(pit, turn);
-        if(!turn.getKalah().equals(board.getLastPit()))
+        if (!turn.getKalah().equals(board.getLastPit()))
             turn = Player.ONE.equals(turn) ? Player.TWO : Player.ONE;
         return this;
     }

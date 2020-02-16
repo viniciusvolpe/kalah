@@ -39,7 +39,7 @@ public class MoveService {
         Player player = game.getTurn();
         if(player.getKalah().equals(pit))
             throw new IllegalStateException("You can't move from kalah");
-        if(player.isMyBoard(pit))
+        if(!player.isMyBoard(pit))
             throw new IllegalStateException("It's not your turn");
         if(game.getBoard().getPits().get(pit).equals(0))
             throw new IllegalStateException("There are any stone in this pit");

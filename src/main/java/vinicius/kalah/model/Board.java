@@ -2,6 +2,7 @@ package vinicius.kalah.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import vinicius.kalah.service.BoardUtils;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,7 +46,7 @@ public class Board {
                 });
         pits.put(pit, 0);
         lastPit = lastPitHolder.get();
-        if (player.isMyBoard(lastPit) && pits.get(lastPit).equals(1) && !isKalah(lastPit))
+        if (player.isMyBoard(lastPit) && pits.get(lastPit).equals(1) && !BoardUtils.isKalah(lastPit))
             moveAllToKalah(lastPit, player);
         if (someBoardEmpty())
             finishGame();
@@ -74,10 +75,6 @@ public class Board {
                 .stream()
                 .filter(pit -> player.isMyBoard(pit.getKey()))
                 .allMatch(pit -> pit.getValue().equals(0));
-    }
-
-    private boolean isKalah(Integer pit) {
-        return Player.ONE.getKalah().equals(pit) || Player.TWO.getKalah().equals(pit);
     }
 
     private void moveAllToKalah(Integer lastPit, Player player) {
