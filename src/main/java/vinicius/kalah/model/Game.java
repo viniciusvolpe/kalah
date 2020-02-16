@@ -28,24 +28,12 @@ public class Game {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public Player getTurn() {
         return turn;
     }
 
-    public void setTurn(Player turn) {
-        this.turn = turn;
-    }
-
     public Board getBoard() {
         return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
     }
 
     public Game changeTurn() {
