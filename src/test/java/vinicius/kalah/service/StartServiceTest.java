@@ -33,6 +33,5 @@ class StartServiceTest {
         verify(gameRepository).save(any(Game.class));
         verify(boardRepository).save(any(Board.class));
         assertThat(game.getId()).isNotBlank();
-        assertThat(game.getUri()).isNotBlank();
     }
 }
