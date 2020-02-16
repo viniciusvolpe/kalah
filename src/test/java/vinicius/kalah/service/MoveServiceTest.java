@@ -35,7 +35,7 @@ class MoveServiceTest {
         verify(gameRepository).save(any(Game.class));
         verify(boardRepository).save(any(Board.class));
         assertThat(gameStatusDTO).isNotNull();
-        assertThat(gameStatusDTO.getStatus().get(2)).isEqualTo(0);
+        assertThat(gameStatusDTO.getStatus().get(2)).isZero();
         assertThat(game.getTurn()).isEqualTo(Player.TWO);
     }
 

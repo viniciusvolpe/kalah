@@ -56,10 +56,13 @@ public class Board {
     private void finishGame() {
         pits.entrySet()
                 .stream()
+                .filter(pit -> !BoardUtils.isKalah(pit.getKey()))
                 .filter(pit -> !pit.getValue().equals(0))
-                .forEach(pit ->
-                        pits.put(getPlayerByPit(pit.getKey()).getKalah(), pit.getValue())
-                );
+                .forEach(pit -> {
+                    Integer kalah = getPlayerByPit(pit.getKey()).getKalah();
+                    pits.put(kalah, pits.get(kalah) + pit.getValue());
+                    pits.put(pit.getKey(), 0);
+                });
     }
 
     private Player getPlayerByPit(Integer pit) {
